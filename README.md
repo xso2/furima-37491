@@ -15,31 +15,32 @@
 
 ### Association
 - has_many :items
-- has_many :user_item
+- has_many :user_items
 
 
 
 ## items テーブル
 
-| Column             | Type       | Options                        |
-| -------            | ---------- | ------------------------------ |
-| name               | string     | null: false                    |
-| introduction       | text       | null: false                    |
-| price              | integer    | null: false                    |
-| item_condition_id  | integer    | null: false                    |
-| category_id        | integer    | null: false                    |
-| postage_payer_id   | integer    | null: false                    |
-| preparation_day_id | integer    | null: false                    |
-| user               | references | null: false, foreign_key: true |
+| Column              | Type       | Options                        |
+| -------             | ---------- | ------------------------------ |
+| name                | string     | null: false                    |
+| introduction        | text       | null: false                    |
+| price               | integer    | null: false                    |
+| item_condition_id   | integer    | null: false                    |
+| category_id         | integer    | null: false                    |
+| postage_payer_id    | integer    | null: false                    |
+| shipping_area_id    | integer    | null: false                    |
+| preparation_day_id  | integer    | null: false                    |
+| user                | references | null: false, foreign_key: true |
 
 
 ### Association
 - belongs_to :user
-- has_one :shipping_address
+- has_one :user_item
 
 
 
-## shipping_address テーブル
+## shipping_addresses テーブル
 
 | Column         | Type       | Options                        |
 | -------        | ---------- | ------------------------------ |
@@ -53,19 +54,17 @@
 
 
 ### Association
-- has_one :user_item
-- has_one :item
+- belongs_to :user_items
 
 
-## user_item テーブル
+## user_items テーブル
 
 | Column           | Type       | Options                        |
 | -------          | ---------- | ------------------------------ |
 | user             | string     | null: false  foreign_key: true |
 | item             | string     | null: false  foreign_key: true |
-| shipping_address | string     | null: false  foreign_key: true |
 
 ### Association
 - belongs_to :user
 - belongs_to :item
-- belongs_to :shipping_address
+- has_one :shipping_address
