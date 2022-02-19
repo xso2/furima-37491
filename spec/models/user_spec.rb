@@ -13,6 +13,13 @@ RSpec.describe User, type: :model do
         expect(@user).to be_valid
       end
 
+
+      it "passwordが6文字以上であれば登録できること" do
+        @user.password = "123456"
+        @user.encrypted_password = "123456"
+        @user.valid?
+      end
+
     end
     context '新規登録できないとき' do
 
@@ -82,12 +89,6 @@ RSpec.describe User, type: :model do
         @user.password = "１00000"
         @user.valid?
         include("Password には全角文字を含むパスワードでは登録できません")
-      end
-
-      it "passwordが6文字以上であれば登録できること" do
-        @user.password = "123456"
-        @user.encrypted_password = "123456"
-        @user.valid?
       end
 
       it "passwordが5文字以下であれば登録できないこと" do
