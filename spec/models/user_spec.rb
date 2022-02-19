@@ -4,8 +4,17 @@ RSpec.describe User, type: :model do
   before do
     @user = FactoryBot.build(:user)
   end
-  describe '新規登録' do
+  
+  describe 'ユーザー新規登録' do
       # nul:false, presence: true のテスト ▼
+      context '新規登録できるとき' do
+
+      it '全ての項目が存在すれば登録できる' do
+        expect(@user).to be_valid
+      end
+
+    end
+    context '新規登録できないとき' do
 
       it "nicknameがない場合は登録できないこと" do
         @user.nickname = ''
@@ -61,7 +70,19 @@ RSpec.describe User, type: :model do
         include "password can't be blank"
       end
 
-      # パスワードの文字数テスト ▼
+      # パスワードの文字テスト ▼
+
+      it "passwordは英数字混合でないと登録できない" do
+        @user.password = "000000"
+        @user.valid?
+        include("Password には英字と数字の両方を含めて設定してください")
+      end
+
+      it "passwordは全角文字を含むパスワードでは登録できない" do
+        @user.password = "１00000"
+        @user.valid?
+        include("Password には全角文字を含むパスワードでは登録できません")
+      end
 
       it "passwordが6文字以上であれば登録できること" do
         @user.password = "123456"
@@ -77,6 +98,11 @@ RSpec.describe User, type: :model do
       end
 
       # email 一意性制約のテスト ▼
+      it 'emailは@を含まないと登録できない' do
+        @user.email = 'testmail'
+        @user.valid?
+        include('Email is invalid')
+      end
 
       it "重複したemailが存在する場合登録できないこと" do
         @user.save
@@ -120,6 +146,7 @@ RSpec.describe User, type: :model do
         @user.first_name_kana = "あいうえお"
         @user.valid?
         include("は不正な値です")
+      end
       end
   end
 end

@@ -2,8 +2,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
         :recoverable, :rememberable, :validatable
 
-  has_many :items
-  has_many :user_items
+  #has_many :items
+  #has_many :user_items
 
   validates :nickname,          presence: true
   VALID_PASSWORD_REGEX =/\A(?=.*?[a-z])(?=.*?[\d])\w{6}\z/
