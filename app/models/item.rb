@@ -13,7 +13,7 @@ class Item < ApplicationRecord
   with_options presence: true do
     validates :image
     validates :name
-    validates :info
+    validates :introduction
     validates :price, inclusion: { in: 300..9_999_999 }, format: { with: /\A[0-9]+\z/,  message: '半角数値を使用してください'}
   end
 
