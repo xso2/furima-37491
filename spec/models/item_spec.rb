@@ -20,50 +20,82 @@ describe Item do
     it "イメージが空だと保存できない" do
       @item.image = nil
       @item.valid?
-      include("を入力してください")
+      expect(@item.errors.full_messages).to include ("Image can't be blank")
     end
 
     it "商品名が空だと保存できない" do
       @item.name = ""
       @item.valid?
-      include("を入力してください")
+      expect(@item.errors.full_messages).to include("Name can't be blank")
     end
 
     it "商品説明が空だと保存できない" do
       @item.introduction = ""
       @item.valid?
-      include("を入力してください")
+      expect(@item.errors.full_messages).to include("Introduction can't be blank")
     end
 
-    it "カテゴリーが空だと保存できない" do
-      @item.category_id =""
+    it "カテゴリーに「---」が選択されている場合は出品できない" do
+      @item.category_id = 1
       @item.valid?
-      include("を入力してください")
+      expect(@item.errors.full_messages).to include ("Category must be other than 1")
     end
 
-    it "商品状態が空だと保存できない" do
-      @item.item_condition_id = ""
+    it "商品の状態に「---」が選択されている場合は出品できない" do
+      @item.item_condition_id= 1
       @item.valid?
-      include("を入力してください")
+      expect(@item.errors.full_messages).to include ("Item condition must be other than 1")
     end
 
-    it "配送料が空だと保存できない" do
-      @item.postage_payer_id = ""
+    it "配送料の負担に「---」が選択されている場合は出品できない" do
+      @item.postage_payer_id= 1
       @item.valid?
-      include("を入力してください")
+      expect(@item.errors.full_messages).to include ("Postage payer must be other than 1")
     end
 
-    it "配送方法が空だと保存できない" do
-      @item.preparation_day_id = ""
+    it "発送元の地域に「---」が選択されている場合は出品できない" do
+      @item.prefecture_id = 1
       @item.valid?
-      include("を入力してください")
+      expect(@item.errors.full_messages).to include ("Prefecture must be other than 1")
     end
 
-    it "販売価格が空だと保存できない" do
+    it "発送までの日数に「---」が選択されている場合は出品できない" do
+      @item.preparation_day_id = 1
+      @item.valid?
+      expect(@item.errors.full_messages).to include ("Preparation day must be other than 1")
+    end
+
+    it "価格が空だと保存できない" do
       @item.price = ""
       @item.valid?
-      include("300以上9999999以下で入力してください")
-        end
+      expect(@item.errors.full_messages).to include("Price can't be blank")
+    end
+
+    it '価格が300円以下だと出品できない' do
+      @item.price = 299
+      @item.valid?
+      expect(@item.errors.full_messages).to include('Price is not included in the list')
+    end
+    it '価格が9,999,999円以上だと出品できない' do
+      @item.price = 10_000_000
+      @item.valid?
+      expect(@item.errors.full_messages).to include('Price is not included in the list')
+    end
+    it '価格が半角数字でないと出品できない' do
+      @item.price = '３００'
+      @item.valid?
+      expect(@item.errors.full_messages).to include('Price is not included in the list')
+    end
+    it "価格が半角英数混合では登録できないこと" do
+      @item.price = "300dollars"
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Price is not a number")
+    end
+    it "価格が半角英語だけでは登録できないこと" do
+      @item.price = "threemillion"
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Price is not included in the list")
+    end
       end
     end
   end
