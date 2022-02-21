@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show] 
+  before_action :set_item, only: [:show, :edit, :update, :destroy]
 
   def index
     @items  = Item.includes(:user).order('created_at DESC')
@@ -16,6 +17,11 @@ class ItemsController < ApplicationController
     else
       render :new
     end
+
+  def show
+  end
+
+
   end
 
 
@@ -36,4 +42,13 @@ class ItemsController < ApplicationController
       :preparation_day_id
     ).merge(user_id: current_user.id)
   end
+
+  def set_item
+    @item = Item.find(params[:id])
+  end
+
+  def move_to_index
+    redirect_to root_path if @item.user != current_user || @item.purchase_record.present?
+  end
+  
 end
