@@ -17,6 +17,12 @@ describe Item do
 
     context '商品の出品が出来ない時' do
 
+      it "ユーザーと結びついていないと出品出来ない" do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include ("User must exist")
+      end
+
     it "イメージが空だと保存できない" do
       @item.image = nil
       @item.valid?

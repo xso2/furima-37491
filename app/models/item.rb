@@ -6,7 +6,7 @@ class Item < ApplicationRecord
   belongs_to :postage_payer
   belongs_to :prefecture
   belongs_to :preparation_day
-  belongs_to :user, optional: true
+  belongs_to :user
   #has_one :buy
   has_one_attached :image
 

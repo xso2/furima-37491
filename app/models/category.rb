@@ -7,8 +7,9 @@ class Category < ActiveHash::Base
     {id: 5, name: 'インテリア・住まい・小物'},
     {id: 6, name: '本・音楽・ゲーム'},
     {id: 7, name: '家電・スマホ・カメラ'},
-    {id: 8, name: 'ハンドメイド'},
-    {id: 9, name: 'その他'}
+    {id: 8, name: 'スポーツ・レジャー'},
+    {id: 9, name: 'ハンドメイド'},
+    {id: 10, name: 'その他'}
   ]
 
   include ActiveHash::Associations
