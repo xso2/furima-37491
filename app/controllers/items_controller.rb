@@ -49,7 +49,7 @@ class ItemsController < ApplicationController
       :item_condition_id, 
       :postage_payer_id, 
       :prefecture_id, 
-      :preparation_day, 
+      :preparation_day_id, 
       :price,
       :image).merge(user_id: current_user.id)
   end
