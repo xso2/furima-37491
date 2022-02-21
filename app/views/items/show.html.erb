@@ -22,8 +22,6 @@
       </span>
     </div>
 
- user_signed_in? #&& @item.purchase_record.blank? %>
-=======
     <% if user_signed_in?# && @item.purchase_record.blank? %>
       <% if current_user.id == @item.user_id %>
         <%= link_to "商品の編集", edit_item_path, method: :get, class: "item-red-btn" %>
