@@ -7,11 +7,11 @@
     </h2>
     <div class="item-img-content">
       <%= image_tag @item.image ,class:"item-box-img" %>
-      <%# if @item.purchase_record.present? %>
+      <% if @user_item.present? %>
       <div class="sold-out">
         <span>Sold Out!!</span>
       </div>
-      <%# end %>
+      <% end %>
     </div>
     <div class="item-price-box">
       <span class="item-price">
@@ -22,15 +22,15 @@
       </span>
     </div>
 
-    <% if user_signed_in?# && @item.purchase_record.blank? %>
+    <% if user_signed_in? && @user_item.blank? %>
       <% if current_user.id == @item.user_id %>
         <%= link_to "商品の編集", edit_item_path, method: :get, class: "item-red-btn" %>
         <p class="or-text">or</p>
         <%= link_to "削除", item_path, method: :delete, class:"item-destroy" %>
       <% else %>
-        <%# if @item.purchase_record.blank? %>
-        <%#= link_to "購入画面に進む", item_purchase_records_path(@item.id) ,class:"item-red-btn"%>
-        <%# end %>
+        <% if @user_item.blank? %>
+        <%= link_to "購入画面に進む", item_user_items_path(@item.id) ,class:"item-red-btn"%>
+        <% end %>
       <% end %>
     <% end %>
 
