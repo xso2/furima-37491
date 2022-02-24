@@ -16,6 +16,6 @@ class PayForm
 
   def save
     user_item = UserItem.create(user_id: user_id, item_id: item_id)
-    ShippingAddress.create(post_code: post_code, prefecture_id: prefecture_id, city: city, house_number: house_number,building_name: building_name, phone_number: phone_number, user_item: user_item.id)
+    ShippingAddress.create(post_code: post_code, prefecture_id: prefecture_id, city: city, house_number: house_number,building_name: building_name, phone_number: phone_number, user_item_id: user_item.id)
   end
 end

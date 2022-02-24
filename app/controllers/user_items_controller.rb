@@ -42,7 +42,10 @@ private
   end
 
   def pay_item
-  Pay.jp.api_key = ENV['PAYJP_SELECT_KEY']
-  Payjp::Charge.create(amount: @item.price, card: user_item_params[:token],currency: 'jpy')
+  Payjp.api_key = ENV['PAYJP_SECRET_KEY']
+  Payjp::Charge.create(
+    amount: @item.price,
+    card: user_item_params[:token],
+    currency: 'jpy')
   end
 end
