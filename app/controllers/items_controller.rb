@@ -1,6 +1,4 @@
 class ItemsController < ApplicationController
-
-  
   before_action :authenticate_user!, except: [:index, :show ] 
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :move_to_index, only: [:edit, :update, :destroy]
@@ -42,7 +40,9 @@ class ItemsController < ApplicationController
     redirect_to root_path
   end
 
+
   private
+
 
   def item_params
     params.require(:item).permit(
@@ -62,15 +62,6 @@ class ItemsController < ApplicationController
   end
 
   def move_to_index
-    redirect_to root_path if @item.user != current_user #|| @item.purchase_record.present?
+    redirect_to root_path if @item_user != current_user || @item.user_item.present?
   end
-
-  def set_item
-    @item = Item.find(params[:id])
-  end
-
-  def move_to_index
-    redirect_to root_path if @item.user != current_user #|| @item.purchase_record.present?
-    end
-  end
-
+end
