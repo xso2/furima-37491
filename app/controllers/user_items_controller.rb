@@ -1,7 +1,7 @@
 class UserItemsController < ApplicationController
   before_action :authenticate_user!
-  before_action :move_to_index, only: [:index, :create]
-  before_action :set_item, only: [:index, :create]
+  before_action :set_item, only: [:index, :show, :edit, :update, :destroy]
+  before_action :move_to_index, only: [:index, :create, :edit, :update, :destroy]
 
   def index
     @pay_form = PayForm.new
@@ -25,7 +25,7 @@ private
   end
 
   def move_to_index
-    if @item_user == current_user || @user_item.present?
+    if @item_user == current_user || @item.user_item.present?
       redirect_to root_path 
     end
   end

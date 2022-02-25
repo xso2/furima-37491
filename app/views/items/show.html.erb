@@ -7,7 +7,7 @@
     </h2>
     <div class="item-img-content">
       <%= image_tag @item.image ,class:"item-box-img" %>
-      <% if @user_item.present? %>
+      <% if @item.user_item.present? %>
       <div class="sold-out">
         <span>Sold Out!!</span>
       </div>
@@ -28,7 +28,7 @@
         <p class="or-text">or</p>
         <%= link_to "削除", item_path, method: :delete, class:"item-destroy" %>
       <% else %>
-        <% if @user_item.blank? %>
+        <% if @item.user_item.blank? %>
         <%= link_to "購入画面に進む", item_user_items_path(@item.id) ,class:"item-red-btn"%>
         <% end %>
       <% end %>
