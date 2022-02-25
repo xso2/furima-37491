@@ -43,9 +43,6 @@ class ItemsController < ApplicationController
 
   private
 
-  def set_item
-    @item = Item.find(params[:id])
-  end
 
   def item_params
     params.require(:item).permit(
@@ -60,7 +57,9 @@ class ItemsController < ApplicationController
       :image).merge(user_id: current_user.id)
   end
 
-
+  def set_item
+    @item = Item.find(params[:id])
+  end
 
   def move_to_index
     redirect_to root_path if @item_user != current_user || @item.user_item.present?
